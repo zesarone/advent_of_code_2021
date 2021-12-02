@@ -39,6 +39,7 @@ defmodule DayOne do
     list
   end
 
+  @spec data :: [1..1_114_111, ...]
   def data do
     [
       141,
