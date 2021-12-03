@@ -1,6 +1,7 @@
 defmodule DayThree do
   @moduledoc """
   Documentation for `DayThree`.
+  https://adventofcode.com/2021/day/3
   """
 
 
@@ -88,6 +89,7 @@ defmodule DayThree do
 
   @spec filter(dataList(), list, integer(), function()) :: list
   defp filter(lst, filterlist, filterlist_pos, modifier) do
+
     cond do
       filterlist_pos > 12 ->
         lst

@@ -1,6 +1,7 @@
 defmodule DayTwo do
   @moduledoc """
   Documentation for `DayTwo`.
+  https://adventofcode.com/2021/day/2
   """
 
   @type dataList :: [

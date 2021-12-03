@@ -1,6 +1,7 @@
 defmodule DayOne do
   @moduledoc """
   Documentation for `DayOne`.
+  https://adventofcode.com/2021/day/1
   """
 
   @doc """
