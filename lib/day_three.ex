@@ -3,9 +3,10 @@ defmodule DayThree do
   Documentation for `DayThree`.
   """
 
-  @spec getGammaAndEpsilon(dataList()) :: any
-  def getGammaAndEpsilon(data) do
-    gamma = data |> gamma()
+
+  @spec getGammaAndEpsilon() :: integer()
+  def getGammaAndEpsilon() do
+    gamma = data() |> gamma()
 
     {epsilon, ""} =
       gamma
@@ -18,7 +19,19 @@ defmodule DayThree do
     gamma * epsilon
   end
 
-  def gamma(data) do
+  @spec lifeSupportRating :: integer
+  def lifeSupportRating do
+    {oxy, _} =
+      oxygenGeneratorRating()
+      |> List.first()
+      |> Integer.parse(2)
+
+    {co2, _} = co2ScrubberRating() |> List.first() |> Integer.parse(2)
+    co2 * oxy
+  end
+
+  @spec gamma(dataList()) :: list
+  defp gamma(data) do
     data
     |> Enum.reduce([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], fn string, acc ->
       [_ | rest] = String.split(string, "")
@@ -41,7 +54,8 @@ defmodule DayThree do
     )
   end
 
-  def epsilon(gamma) do
+  @spec epsilon(list) :: list
+  defp epsilon(gamma) do
     gamma
     |> Enum.map(
       &if &1 == "1" do
@@ -52,17 +66,8 @@ defmodule DayThree do
     )
   end
 
-  def lifeSupportRating do
-    {oxy, _} =
-      oxygenGeneratorRating()
-      |> List.first()
-      |> Integer.parse(2)
-
-    {co2, _} = co2ScrubberRating() |> List.first() |> Integer.parse(2)
-    co2 * oxy
-  end
-
-  def oxygenGeneratorRating do
+  @spec oxygenGeneratorRating :: list
+  defp oxygenGeneratorRating do
     filter(
       data(),
       data() |> gamma(),
@@ -71,7 +76,8 @@ defmodule DayThree do
     )
   end
 
-  def co2ScrubberRating do
+  @spec co2ScrubberRating :: list
+  defp co2ScrubberRating do
     filter(
       data(),
       data() |> gamma() |> epsilon(),
@@ -80,7 +86,8 @@ defmodule DayThree do
     )
   end
 
-  def filter(lst, filterlist, filterlist_pos, modifier) do
+  @spec filter(dataList(), list, integer(), function()) :: list
+  defp filter(lst, filterlist, filterlist_pos, modifier) do
     cond do
       filterlist_pos > 12 ->
         lst
@@ -113,7 +120,7 @@ defmodule DayThree do
 
   @type dataList :: [<<_::96>>, ...]
   @spec data :: dataList()
-  def data do
+  defp data do
     [
       "101001100010",
       "010100001011",
