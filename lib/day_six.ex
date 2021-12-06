@@ -24,7 +24,7 @@ defmodule DaySix do
   end
 
 
-  def smartTick(fishes) do
+  def lessDumbTick(fishes) do
     zeros = fishes.zero
     fishes = %{fishes | :zero => fishes.one}
     fishes = %{fishes | :one => fishes.two}
@@ -37,10 +37,10 @@ defmodule DaySix do
     fishes = %{fishes | :eight => zeros}
     fishes
   end
-  def smartCount(days) do
+  def lessDumbCount(days) do
     1..days
     |> Enum.reduce(createFreqTable(), fn _i, fishes ->
-      smartTick(fishes)
+      lessDumbTick(fishes)
     end)
     |> Enum.reduce(0, fn {_, num}, tot ->
       num + tot
