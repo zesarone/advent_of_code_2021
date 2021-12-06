@@ -3,15 +3,6 @@ defmodule DaySix do
   Documentation for `DaySix`.
   """
 
-  @doc """
-  Hello world.
-
-  ## Examples
-
-      iex> DaySix.hello()
-      :world
-
-  """
   def tick(fishes) do
     fishes
     |> Enum.reduce(
@@ -26,7 +17,7 @@ defmodule DaySix do
 
   def count_fish_after(days) do
     1..days
-    |> Enum.reduce(testData(), fn _i, fishes ->
+    |> Enum.reduce(data(), fn _i, fishes ->
       tick(fishes)
     end)
     |> length
@@ -77,9 +68,6 @@ defmodule DaySix do
     )
   end
 
-  def testData do
-    [3, 4, 3, 1, 2]
-  end
 
   def data do
     [
