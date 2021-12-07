@@ -3,28 +3,69 @@ defmodule DaySeven do
   Documentation for `DaySeven`.
   """
 
+  def alignCrabs do
+    histo =
+      data()
+      |> histogram
+
+    avg_pos =
+      histo
+      |> averagePosition
+
+    data()
+    |> Enum.reduce(0, fn crabPos, runningCost ->
+      runningCost + abs(crabPos - avg_pos)
+    end)
+  end
+
+  def averagePosition(histo) do
+    {sum, tot} =
+      histo
+      |> Enum.reduce({0, 0}, fn {pos, amount}, {avg, tot} ->
+        {avg + pos * amount, amount + tot}
+      end)
+
+    round(sum / tot)
+  end
+
+  def histogram(data) do
+    {_, histo} =
+      data
+      |> Enum.sort()
+      |> Enum.reduce({nil, []}, fn next, {last, histo} ->
+        if(last == next) do
+          [{_, first} | rest] = histo
+          {next, [{next, first + 1} | rest]}
+        else
+          {next, [{next, 1} | histo]}
+        end
+      end)
+
+    Enum.reverse(histo)
+  end
 
   def bruteForce do
     max = data() |> Enum.reduce(0, &max/2)
 
     0..max
-    |> Enum.reduce(99_999_999_999_999_999_999, fn pos_candidate, best_so_far ->
+    |> Enum.reduce(nil, fn pos_candidate, best_so_far ->
       min(
         best_so_far,
         data()
         |> Enum.reduce(0, fn crabPos, runningCost ->
-          x =
-            1..abs(crabPos - pos_candidate)
-            |> Enum.reduce(0, &Kernel.+/2)
+          x =abs(crabPos - pos_candidate)
+          runningCost + x * (x+1)/2
 
-          runningCost + x
-          #runningCost + abs(crabPos - pos_candidate) # first solution
+          # 1..abs(crabPos - pos_candidate)
+          # |> Enum.reduce(0, &Kernel.+/2) # Slow second task
+
+          #runningCost + abs(crabPos - pos_candidate) # First task
         end)
       )
     end)
   end
 
-
+  @spec data :: [integer(), ...]
   def data do
     [
       1101,
