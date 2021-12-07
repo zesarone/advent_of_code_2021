@@ -24,7 +24,7 @@ defmodule DaySeven do
     end)
   end
 
-  @spec data :: [char, ...]
+
   def data do
     [
       1101,
