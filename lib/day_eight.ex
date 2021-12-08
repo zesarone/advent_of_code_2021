@@ -87,11 +87,6 @@ defmodule DayEight do
       |> Enum.filter(fn {_, l} -> MapSet.size(l) >= 6 end)
       |> Enum.map(fn {_, a} -> a end)
 
-    twoThreeFive =
-      unknown
-      |> Enum.filter(fn {_, l} -> MapSet.size(l) < 6 end)
-      |> Enum.map(fn {_, a} -> a end)
-
     c_d_e_Candidates =
       case length(zeroSixNine) do
         0 ->
